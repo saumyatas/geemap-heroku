@@ -1,37 +1,39 @@
-import os
-import platform
-import json
-from subprocess import DEVNULL, STDOUT, check_call
+{"EARTHENGINE_TOKEN":"4/1AdQt8qjK3iRY-VaMXps7Bx7p66vjuGtqgB6IW6Xy6wtgKmLxmoiOw_0wEY4"}
 
-def set_heroku_vars(token_name='EARTHENGINE_TOKEN'):
-    """Extracts Earth Engine token from the local computer and sets it as an environment variable on heroku.
+# import os
+# import platform
+# import json
+# from subprocess import DEVNULL, STDOUT, check_call
 
-    Args:
-        token_name (str, optional): Name of the Earth Engine token. Defaults to 'EARTHENGINE_TOKEN'.
-    """
-    try:
+# def set_heroku_vars(token_name='EARTHENGINE_TOKEN'):
+#     """Extracts Earth Engine token from the local computer and sets it as an environment variable on heroku.
 
-        ee_token_dir = os.path.expanduser("~/.config/earthengine/")
-        ee_token_file = os.path.join(ee_token_dir, 'credentials')
+#     Args:
+#         token_name (str, optional): Name of the Earth Engine token. Defaults to 'EARTHENGINE_TOKEN'.
+#     """
+#     try:
 
-        if not os.path.exists(ee_token_file):
-            print('The credentials file does not exist.')
-        else:
+#         ee_token_dir = os.path.expanduser("~/.config/earthengine/")
+#         ee_token_file = os.path.join(ee_token_dir, 'credentials')
 
-            with open(ee_token_file) as f:
-                content = f.read()
-                content_json = json.loads(content)
-                token = content_json["refresh_token"]
-                secret = '{}={}'.format(token_name, token)
-                if platform.system() == 'Windows':
-                    check_call(['heroku', 'config:set', secret], stdout=DEVNULL, stderr=STDOUT, shell=True)
-                else:
-                    check_call(['heroku', 'config:set', secret], stdout=DEVNULL, stderr=STDOUT)
+#         if not os.path.exists(ee_token_file):
+#             print('The credentials file does not exist.')
+#         else:
 
-    except Exception as e:
-        print(e)
-        return
+#             with open(ee_token_file) as f:
+#                 content = f.read()
+#                 content_json = json.loads(content)
+#                 token = content_json["refresh_token"]
+#                 secret = '{}={}'.format(token_name, token)
+#                 if platform.system() == 'Windows':
+#                     check_call(['heroku', 'config:set', secret], stdout=DEVNULL, stderr=STDOUT, shell=True)
+#                 else:
+#                     check_call(['heroku', 'config:set', secret], stdout=DEVNULL, stderr=STDOUT)
 
-if __name__ == '__main__':
+#     except Exception as e:
+#         print(e)
+#         return
 
-    set_heroku_vars(token_name='EARTHENGINE_TOKEN')
+# if __name__ == '__main__':
+
+#     set_heroku_vars(token_name='EARTHENGINE_TOKEN')
